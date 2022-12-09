@@ -29,13 +29,7 @@ def generator(string, sep=' ', option=None): #sep = espace et option =None sont 
     if option == "ordered":
         split.sort()
         newstr = split
-    
+
     print('\n'.join(newstr)) #pour que les nouvelles string s'affichent toutes séparées d'un saut à la ligne
 
 generator(sys.argv[1], sys.argv[2], sys.argv[3])
-
-
-
-
-
-
