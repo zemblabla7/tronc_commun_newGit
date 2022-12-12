@@ -39,6 +39,10 @@ print(f"w: {w}")
 print(f"b: {b}")
 
 #to compute the value of 𝑓𝑤,𝑏(𝑥(𝑖)) for the data points
+#𝑓𝑤,𝑏(𝑥) = wx + b
+#w,b: parameters (also called coefficients or weights)
+#the value of w gives the slope of the line (if w = 0, the line will be straight horizontally).
+#b est là où la ligne démarre sur la ligne y
 def compute_model_output(x, w, b):
     """
     Computes the prediction of a linear model
@@ -82,3 +86,5 @@ x_i = 1.2 #house of 1200 sqft.
 cost_1200sqft = w * x_i + b    
 
 print(f"${cost_1200sqft:.0f} thousand dollars")
+
+
