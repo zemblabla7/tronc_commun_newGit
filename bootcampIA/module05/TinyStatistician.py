@@ -36,9 +36,9 @@ class TinyStatistician(object):
         print(q1, q3)
 
     # def percentile(x, p):
-        #### pas compris
+        #### https://www.translatorscafe.com/unit-converter/fr-FR/calculator/percentile/
         
-    def var(self, x):
+    def var(self, x): #https://stacklima.com/la-correction-de-bessel/
         m = len(x)
         sum = 0 
         for i in range (0, len(x)):
