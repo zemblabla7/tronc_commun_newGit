@@ -14,9 +14,6 @@ def simple_gradient(x, y, theta):
     Raises:
     This function should not raise any Exception.
     """
-
-    #gradient = (1/m) * x * 
-
     m = len(x)  
     w = 0
     b = 0
@@ -30,7 +27,7 @@ def simple_gradient(x, y, theta):
     w = w / m 
     b = b / m 
         
-    print(b, w)
+    #print(b, w)
     return b, w
 
 
