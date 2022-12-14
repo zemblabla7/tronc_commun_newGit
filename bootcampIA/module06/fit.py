@@ -1,8 +1,15 @@
 import numpy as np
-from vec_gradient import simple_gradient
-#from module05.prediction import predict_
+#from vec_gradient import simple_gradient
+# import sys
+# sys.path.insert(0, '/home/carolina/Documents/tronc commun/bootcampIA/module05')
+# from prediction import predict_
 
-# Linear Gradient Descent
+
+def simple_gradient(x, y, theta):
+    res = np.c_[np.ones(len(x)), x] @ theta
+    res -= y
+    res = np.c_[np.ones(len(x)), x].transpose() @ res
+    return res / len(y)
 
 def fit_(x, y, theta, alpha, max_iter):
     """
@@ -20,20 +27,16 @@ def fit_(x, y, theta, alpha, max_iter):
     Raises:
     This function should not raise any Exception.
     """
-    gradient = simple_gradient(x, y, theta)
-    g_b = gradient[0]
-    g_w = gradient[1]
-    b = theta[0]
-    w = theta[1]
+
     for i in range(max_iter):
-        b = b - alpha * g_b
-        w = w - alpha * g_w
-    print(b, w)
+        theta -= alpha * simple_gradient(x, y, theta)
+        #print(f"b: {b}, w: {w}, gb: {g_b}, gw: {g_w}")
+    print(theta)
 
 
 x = np.array([[12.4956442], [21.5007972], [31.5527382], [48.9145838], [57.5088733]])
 y = np.array([[37.4013816], [36.1473236], [45.7655287], [46.6793434], [59.5585554]])
-theta = np.array([1.0, 1.0]).reshape((-1, 1)) #et non array([1, 1]) car si int au lieu de float ça ne marche pas!
+theta = np.array([1.0, 1.0]).reshape((-1, 1)) # et non array([1, 1]) car si int au lieu de float ça ne marche pas!
 
 #Exemple 1:
 theta1 = fit_(x, y, theta, alpha=5e-8, max_iter=1500000)

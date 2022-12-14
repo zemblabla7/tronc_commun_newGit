@@ -38,7 +38,7 @@ y = np.array([[37.4013816], [36.1473236], [45.7655287], [46.6793434], [59.558555
 theta = np.array([1.0, 1.0]).reshape((-1, 1)) #et non array([1, 1]) car si int au lieu de float ça ne marche pas!
 
 #Exemple 1:
-#theta1 = fit_(x, y, theta, alpha=5e-8, max_iter=1500000)
+theta1 = fit_(x, y, theta, alpha=5e-8, max_iter=1500000)
 # theta1
 	# Output:
 	# array([[1.40709365],
