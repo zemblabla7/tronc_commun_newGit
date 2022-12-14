@@ -20,7 +20,7 @@ def fit_(x, y, theta, alpha, max_iter):
     Raises:
     This function should not raise any Exception.
     """
-    gradient = simple_gradient(x, y, theta) #importer vec_gradient.py
+    gradient = simple_gradient(x, y, theta)
     g_b = gradient[0]
     g_w = gradient[1]
     b = theta[0]

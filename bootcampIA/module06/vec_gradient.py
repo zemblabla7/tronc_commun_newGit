@@ -14,19 +14,19 @@ def simple_gradient(x, y, theta):
     Raises:
     This function should not raise any Exception.
     """
-    m = len(x)  
+    m = len(x)
     w = 0
     b = 0
-    
-    for i in range(m):  
+
+    for i in range(m):
         f_wb = theta[1] * x[i] + theta[0]
         temp_w = (f_wb - y[i]) * x[i]
         temp_b = f_wb - y[i]
         b += temp_b
         w += temp_w
-    w = w / m 
-    b = b / m 
-        
+    w = w / m
+    b = b / m
+
     #print(b, w)
     return b, w
 

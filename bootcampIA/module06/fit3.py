@@ -18,17 +18,17 @@ def gradient(x, y, w, b):
     Raises:
     This function should not raise any Exception.
     """
-    m = len(x)  
-    
-    for i in range(m):  
+    m = len(x)
+
+    for i in range(m):
         f_wb = w * x[i] + b
         temp_w = (f_wb - y[i]) * x[i]
         temp_b = f_wb - y[i]
         b += temp_b
         w += temp_w
-    w = w / m 
-    b = b / m 
-        
+    w = w / m
+    b = b / m
+
     return b, w
 
 
@@ -48,7 +48,7 @@ def fit_(x, y, theta, alpha, max_iter):
     Raises:
     This function should not raise any Exception.
     """
-    
+
     b = theta[0]
     w = theta[1]
     for i in range(max_iter):
@@ -57,6 +57,7 @@ def fit_(x, y, theta, alpha, max_iter):
         g_w = g[1]
         b = b - alpha * g_b
         w = w - alpha * g_w
+        #print(f"b: {b}, w: {w}, gb: {g_b}, gw: {g_w}")
     print(b, w)
 
 
