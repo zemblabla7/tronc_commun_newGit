@@ -18,8 +18,8 @@ class MyLinearRegression():
 	def fit_(self, x, y):
 		for i in range(self.max_iter):
 			self.thetas -= self.alpha * gradient(x, y, self.thetas)
-		print(self.thetas)
-		#return self.thetas.reshape(2, 2)
+		#print(self.thetas. reshape(1, 5))
+		return self.thetas.reshape(1, 5)
 
 	def predict_(self, x): #reprend le self.thetas de fit
 		X_apostrophe = np.c_[np.ones(len(x)), x]
@@ -53,4 +53,3 @@ mylr = MyLR([[1.], [1.], [1.], [1.], [1]])
 mylr.alpha = 1.6e-4
 mylr.max_iter = 200000
 mylr.fit_(X, Y)
-mylr.theta
