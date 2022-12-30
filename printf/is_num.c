@@ -1,20 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_d.c                                             :+:      :+:    :+:   */
+/*   is_num.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:00:48 by casomarr          #+#    #+#             */
-/*   Updated: 2022/12/16 21:06:00 by casomarr         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:10:40 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
 
 int	ft_strlen(char *str)
 {
@@ -64,9 +58,9 @@ int	is_error2(char *base)
 	return (1);
 }
 
-void	ft_putnbr_base(int nbr, char *base)
+void	ft_putnbr_base(unsigned long long nbr, char *base)
 {
-	unsigned int	n;
+	unsigned long long	n;
 
 	n = 0;
 	if (is_error1(base) == 0 || is_error2(base) == 0)
@@ -78,7 +72,28 @@ void	ft_putnbr_base(int nbr, char *base)
 	}
 	else
 		n = nbr;
-	if (n >= (unsigned int)ft_strlen(base))
+	if (n >= (unsigned long long)ft_strlen(base))
 		ft_putnbr_base(n / ft_strlen(base), base);
 	ft_putchar(base[n % ft_strlen(base)]);
+}
+
+void ft_is_num(long long ptr, char type)
+{
+	char	*base;
+
+	if (type == 'd' || type == 'i' || type == 'u') // i : nb entier, d : nb decimal, u :écimal non signé
+	{
+		base = "0123456789";
+		ft_putnbr_base(ptr, base);
+	}
+	if (type == 'x')
+	{
+		base = "0123456789abcdef";
+		ft_putnbr_base(ptr, base);
+	}
+	if (type == 'X')
+	{
+		base = "0123456789ABCDEF";
+		ft_putnbr_base(ptr, base);
+	}
 }

@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "string": "c",
+        "stdlib.h": "c",
+        "*.tcc": "c",
+        "unordered_map": "c",
+        "string_view": "c"
+    }
+}

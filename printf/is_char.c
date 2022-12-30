@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_s.c                                             :+:      :+:    :+:   */
+/*   is_char.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:00:58 by casomarr          #+#    #+#             */
-/*   Updated: 2022/12/16 21:01:21 by casomarr         ###   ########.fr       */
+/*   Updated: 2022/12/30 21:27:23 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_putstr_fd(char *s, int fd)
+//# include <stddef.h> //EFFACER
+
+void	ft_putchar(int c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putstr(char *s)
 {
 	int	i;
 
@@ -19,7 +26,17 @@ void	ft_putstr_fd(char *s, int fd)
 		return ;
 	while (s[i])
 	{
-		ft_putchar_fd(s[i], fd);
+		ft_putchar(s[i]);
 		i++;
 	}
+}
+
+char	ft_is_c(int ptr)
+{
+	ft_putchar(ptr);
+}
+
+char	ft_is_s(char *ptr)
+{
+	ft_putstr(ptr);
 }
