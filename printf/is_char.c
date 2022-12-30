@@ -6,9 +6,11 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:00:58 by casomarr          #+#    #+#             */
-/*   Updated: 2022/12/30 22:29:36 by carolina         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:36:49 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libftprintf.h"
 
 void	ft_putchar(int c)
 {

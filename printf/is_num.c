@@ -6,9 +6,11 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:00:48 by casomarr          #+#    #+#             */
-/*   Updated: 2022/12/30 22:16:35 by carolina         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:36:50 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libftprintf.h"
 
 int	ft_strlen(char *str)
 {

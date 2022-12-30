@@ -6,18 +6,19 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:06:18 by casomarr          #+#    #+#             */
-/*   Updated: 2022/12/30 22:33:16 by carolina         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:39:18 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdarg.h> 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
+// # include <stdarg.h> 
+// # include <stdio.h>
+// # include <unistd.h>
+// # include <stdlib.h>
 
-# include "is_char.c"
-# include "is_num.c"
-//#include "libft.c"
+// # include "is_char.c"
+// # include "is_num.c"
+
+#include "libftprintf.h"
 
 int ft_printf(const char *arg, ...) //attention prototype dans le sujet ne précise pas que le premier argument s'appelle arg!
 {
@@ -47,13 +48,13 @@ int ft_printf(const char *arg, ...) //attention prototype dans le sujet ne préc
 			ft_putstr(va_arg(ptr, char *));
 			i++;
 		}	
-		if (arg[i] == 'd' || arg[i] == 'i' || arg[i] == 'x' || arg[i] == 'X') 
+		if (arg[i] == 'd' || arg[i] == 'i') 
 		{
 			type = arg[i];
 			ft_is_num(va_arg(ptr, long long), type);
 			i++;
 		}
-		if (arg[i] == 'u')
+		if (arg[i] == 'x' || arg[i] == 'X' || arg[i] == 'u') 
 		{
 			type = arg[i];
 			ft_is_num(va_arg(ptr, unsigned long long), type);
