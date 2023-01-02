@@ -6,7 +6,7 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:06:18 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/02 21:06:43 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/02 21:47:31 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_format(int i, const char *arg, va_list ptr)
 	else if (arg[i + 1] == 's')
 		return(ft_putstr(va_arg(ptr, char *)));
 	else if (arg[i + 1] == 'd' || arg[i + 1] == 'i')
-		return(ft_is_num_int(va_arg(ptr, int), arg[i + 1]));
+		return(ft_is_num_int(va_arg(ptr, int)));
 	else if (arg[i + 1] == 'x' || arg[i + 1] == 'X' || arg[i + 1] == 'u')
 		return(ft_is_num_long(va_arg(ptr, long long), arg[i + 1]));
 	else if (arg[i + 1] == 'p')
@@ -71,7 +71,6 @@ int	ft_printf(const char *arg, ...) //attention prototype dans le sujet ne préc
 		}
 	}
 	va_end(ptr);
-	//printf("%i", length);
 	return (length);
 }
 
@@ -122,5 +121,9 @@ int	ft_printf(const char *arg, ...) //attention prototype dans le sujet ne préc
 // 	return (0);
 // }
 
-//test 14
-//test13
+// int main ()
+// {
+// 	//ft_printf("This %p is even stranger\n", (void *)-1);
+// 	ft_printf("(%i)", ft_printf("This %p is even stranger\n", (void *)-1));
+// 	return 0;
+// }

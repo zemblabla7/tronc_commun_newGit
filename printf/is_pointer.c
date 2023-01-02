@@ -6,13 +6,36 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:45 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/02 21:02:06 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/02 21:57:12 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_nbrlen(long long ptr, int base_len) // si jamais j utilise cette fonction avec is_num, rajouter une condition si nb negatif
+int ft_nbrlen(long long ptr, int base_len)
+{
+	int i;
+	unsigned long long	n;
+
+	i = 0;
+	if (ptr == 0)
+		return (1);
+	if (ptr < 0)
+	{
+		n = ptr * -1;
+		i++;
+	}
+	else
+		n = ptr;
+	while (n > 0)
+	{
+		n = n / base_len;
+		i++;
+	}
+	return (i);
+}
+
+int ft_nbrlen_unsigned(unsigned long long ptr, int base_len)
 {
 	int i;
 
@@ -59,19 +82,17 @@ int ft_is_pointer(unsigned long long ptr, int trigger)
 	// return(ft_nbrlen(ptr, 16) + 2);
 
 	char * base;
-	int length;
 
-	if (ptr == NULL)
+	if ((void *)ptr == NULL)
 	{
 		ft_putstr("(nil)");
 		return (5);
 	}
 	base = "0123456789abcdef";
-	length = ft_nbrlen(ptr, 16);
 	if (trigger == 1)
 		ft_putstr("0x");
 	if (ptr > 15)
 		ft_is_pointer((ptr / 16), 0);
 	ft_putchar(base[ptr % 16]);
-	return(ft_nbrlen(ptr, 16) + 2);
+	return(ft_nbrlen_unsigned(ptr, 16) + 2);
 }
