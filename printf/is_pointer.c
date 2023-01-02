@@ -6,11 +6,11 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:45 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/02 14:42:43 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:21:47 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 void ft_is_pointer(void *ptr)
 {
