@@ -6,7 +6,7 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:00:48 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/02 14:53:59 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:30:51 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	is_error2(char *base)
 	return (1);
 }
 
-void	ft_putnbr_base(unsigned long long nbr, char *base)
+void	ft_putnbr_base(long long nbr, char *base)
 {
 	unsigned long long	n;
 
@@ -79,11 +79,22 @@ void	ft_putnbr_base(unsigned long long nbr, char *base)
 	ft_putchar(base[n % ft_strlen(base)]);
 }
 
-void ft_is_num(long long ptr, char type)
+void ft_is_num_int(int ptr, char type)
 {
 	char	*base;
 
-	if (type == 'd' || type == 'i' || type == 'u') // i : nb entier, d : nb decimal, u :écimal non signé
+	if (type == 'd' || type == 'i') // i : nb entier, d : nb decimal, u :décimal non signé
+	{
+		base = "0123456789";
+		ft_putnbr_base(ptr, base);
+	}
+}
+
+void ft_is_num_long(long long ptr, char type)
+{
+	char	*base;
+
+	if (type == 'u')
 	{
 		base = "0123456789";
 		ft_putnbr_base(ptr, base);

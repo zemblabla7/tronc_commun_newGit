@@ -6,7 +6,7 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:05 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/02 15:31:41 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:27:16 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int	is_error1(char *base);
 int	is_error2(char *base);
 void	ft_putchar(int c);
 void	ft_putstr(char *s);
-void	ft_putnbr_base(unsigned long long nbr, char *base);
-void	ft_is_num(long long ptr, char type);
+void	ft_putnbr_base(long long nbr, char *base);
+void	ft_is_num_int(int ptr, char type);
+void	ft_is_num_long(long long ptr, char type);
 void	ft_is_pointer(void *ptr);
 
 #endif
