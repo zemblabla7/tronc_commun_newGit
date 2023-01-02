@@ -1,3 +1,14 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/01/02 14:42:11 by casomarr          #+#    #+#              #
+#    Updated: 2023/01/02 14:42:47 by casomarr         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = libftprintf.a
 FILES = ft_printf.c \
@@ -23,5 +34,3 @@ re : fclean all
 	cc -Wall -Werror -Wextra ${OBJS}
 
 .Phony : all, clean, fclean, re, bonus
-
-

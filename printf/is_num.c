@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   is_num.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:00:48 by casomarr          #+#    #+#             */
-/*   Updated: 2022/12/30 22:36:50 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/02 14:42:49 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
 int	ft_strlen(char *str)
-{
+{/code
 	int	i;
 
 	i = 0;

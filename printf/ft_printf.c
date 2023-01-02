@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:06:18 by casomarr          #+#    #+#             */
-/*   Updated: 2022/12/30 22:39:18 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/02 14:42:50 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// # include <stdarg.h> 
+// # include <stdarg.h>
 // # include <stdio.h>
 // # include <unistd.h>
 // # include <stdlib.h>
@@ -47,21 +47,24 @@ int ft_printf(const char *arg, ...) //attention prototype dans le sujet ne préc
 		{
 			ft_putstr(va_arg(ptr, char *));
 			i++;
-		}	
-		if (arg[i] == 'd' || arg[i] == 'i') 
+		}
+		if (arg[i] == 'd' || arg[i] == 'i')
 		{
 			type = arg[i];
 			ft_is_num(va_arg(ptr, long long), type);
 			i++;
 		}
-		if (arg[i] == 'x' || arg[i] == 'X' || arg[i] == 'u') 
+		if (arg[i] == 'x' || arg[i] == 'X' || arg[i] == 'u')
 		{
 			type = arg[i];
 			ft_is_num(va_arg(ptr, unsigned long long), type);
 			i++;
 		}
-		//if (arg[i] == 'p')
-			//???
+		if (arg[i] == 'p')
+		{
+			ft_is_pointer(va_arg(ptr, void *));
+			i++;
+		}
 		if (arg[i] == '%')
 		{
 			ft_putchar('%');
@@ -73,28 +76,33 @@ int ft_printf(const char *arg, ...) //attention prototype dans le sujet ne préc
 		}
 	}
 	va_end (ptr);
+	return (0); // ou 1?
 }
 
 int main()
 {
-	char *string = "linda";
-	char caractere = 'L';
-	int nb_entier = 1843;
-	long long nb_decimal = 1843;
-	int hexa_min = 1643;
-	int hexa_maj = 1643;
-	char *s1 = "linda";
-	char *s2 = "cómo";
-	char *s3 = "vas?";
-	
-	ft_printf("Hola %s\n", string);
-	ft_printf("Hola %c\n", caractere);
-	ft_printf("Hola %i\n", nb_entier);
-	ft_printf("Hola %d\n", nb_decimal);
-	ft_printf("Hola %x\n", hexa_min);
-	ft_printf("Hola %X\n", hexa_maj);
-	ft_printf("Hola %s %s %s\n", s1, s2, s3);
-	ft_printf("Hola %%%\n"); 
-	
+	// char *string = "linda";
+	// char caractere = 'L';
+	// int nb_entier = 1843;
+	// long long nb_decimal = 1843;
+	// int hexa_min = 1643;
+	// int hexa_maj = 1643;
+	// char *s1 = "linda";
+	// char *s2 = "cómo";
+	// char *s3 = "vas?";
+	//char *p = "Hola";
+	char *p;
+
+	// ft_printf("Hola %s\n", string);
+	// ft_printf("Hola %c\n", caractere);
+	// ft_printf("Hola %i\n", nb_entier);
+	// ft_printf("Hola %d\n", nb_decimal);
+	// ft_printf("Hola %x\n", hexa_min);
+	// ft_printf("Hola %X\n", hexa_maj);
+	// ft_printf("Hola %s %s %s\n", s1, s2, s3);
+	// ft_printf("Hola %%%\n");
+	ft_printf("ft_printf : %p\n", p);
+	printf("printf : %p\n", p);
+
 	return 0;
 }
