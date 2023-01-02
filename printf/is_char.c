@@ -6,18 +6,19 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:00:58 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/02 16:23:21 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/02 20:38:04 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar(int c)
+int	ft_putchar(int c)
 {
 	write(1, &c, 1);
+	return(1);
 }
 
-void	ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
 	int	i;
 
@@ -25,11 +26,12 @@ void	ft_putstr(char *s)
 	if (s == NULL)
 	{
 		ft_putstr("(null)");
-		return ;
+		return (6);
 	}
-	while (s[i])
+	while (s[i] != '\0')
 	{
 		ft_putchar(s[i]);
 		i++;
 	}
+	return(i);
 }

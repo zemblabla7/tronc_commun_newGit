@@ -6,35 +6,35 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:06:18 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/02 17:35:57 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/02 21:06:43 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void ft_format(int i, const char *arg, va_list ptr)
+int	ft_format(int i, const char *arg, va_list ptr)
 {
 	char type;
 
 	type = 0;
 	if (arg[i + 1] == 'c')
-		ft_putchar(va_arg(ptr, int));
+		return(ft_putchar(va_arg(ptr, int)));
 	else if (arg[i + 1] == 's')
-		ft_putstr(va_arg(ptr, char *));
+		return(ft_putstr(va_arg(ptr, char *)));
 	else if (arg[i + 1] == 'd' || arg[i + 1] == 'i')
-		ft_is_num_int(va_arg(ptr, int), arg[i + 1]);
+		return(ft_is_num_int(va_arg(ptr, int), arg[i + 1]));
 	else if (arg[i + 1] == 'x' || arg[i + 1] == 'X' || arg[i + 1] == 'u')
-		ft_is_num_long(va_arg(ptr, long long), arg[i + 1]);
+		return(ft_is_num_long(va_arg(ptr, long long), arg[i + 1]));
 	else if (arg[i + 1] == 'p')
-		ft_is_pointer(va_arg(ptr, void *));
+		return(ft_is_pointer(va_arg(ptr, unsigned long long), 1));
 	else if (arg[i + 1] == '%')
-		ft_putchar('%');
+		return(ft_putchar('%'));
 	else
 	{
 		ft_putchar('%');
 		ft_putchar(arg[i + 1]);
+		return(2);
 	}
-	va_end(ptr);
 }
 
 int	ft_printf(const char *arg, ...) //attention prototype dans le sujet ne précise pas que le premier argument s'appelle arg!
@@ -42,27 +42,37 @@ int	ft_printf(const char *arg, ...) //attention prototype dans le sujet ne préc
 	va_list ptr; // pointer on the first argument (therefore the const char *)
 	va_start (ptr, arg); // pointer on the first argument, argument (on donne à const char * le nom "arg")
 	int i;
-	int rtn;
+	int length;
 
 	i = 0;
-	while(arg[i] != '\0')
+	length = 0;
+	while(arg[i])
 	{
-		if (arg[i] == '%' && arg[i + 1] != '\0')
-		{
-			ft_format(i, arg, ptr);
-			rtn = rtn + ft_strlen(ft_format(i, arg, ptr)); ///////
-			i++;
-		}
+		// if (arg[i] == '%' && arg[i + 1] != '\0')
+		// {
+		// 	ft_format(i, arg, ptr);
+		// 	length += ft_format(i, arg, ptr);
+		// 	i++;
+		// }
+		// else
+		// {
+		// 	if (arg[i] == '%' && arg[i + 1] == '\0' )
+		// 		break;
+		// 	length += ft_putchar(arg[i]);
+		// }
+		// i++;
+
+		if (arg[i] != '%')
+			length += ft_putchar(arg[i++]);
 		else
 		{
-			if (arg[i] == '%' && arg[i + 1] == '\0' )
-				break ;
-			ft_putchar(arg[i]);
-			rtn = rtn + 1;
+			length += ft_format(i, arg, ptr);
+			i += 2;
 		}
-		i++;
 	}
-	return (rtn);
+	va_end(ptr);
+	//printf("%i", length);
+	return (length);
 }
 
 // int main()
@@ -87,15 +97,30 @@ int	ft_printf(const char *arg, ...) //attention prototype dans le sujet ne préc
 // 	// ft_printf("Hola %X\n", hexa_maj);
 // 	// ft_printf("Hola %s %s %s\n", s1, s2, s3);
 // 	// ft_printf("Hola %%%\n");
-// 	//ft_printf("ft_printf : %p\n", p);
+// 	//ft_printf("ft_printf0 : %p\n", p);
 // 	//printf("printf : %p\n", p);
 
 // 	// printf ("(%i)\n", printf("Helia"));
 // 	// ft_printf ("(%i)\n", ft_printf("Helia"));
 
-// 	int i = -1;
-// 	ft_printf("%d\n", i);
+// 	// int i = -1;
+// 	// ft_printf("%d\n", i);
 
-// 	return 0;
+// 	//ft_printf("(%i)\n", ft_printf("hola"));
+
+// 	//int num = 64;
+// 	//ft_printf("(%i)\n", ft_printf("64"));
+
+// 	//ft_printf("(%i)\n", ft_printf("this is a test"));
+
+// 	// ft_printf("%c", 'a');
+// 	// printf("\n%c", 'a');
+
+// 	ft_printf("%s", "");
+
+
+// 	return (0);
 // }
 
+//test 14
+//test13
