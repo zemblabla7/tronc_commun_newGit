@@ -6,7 +6,7 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:15 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/03 17:19:31 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:20:52 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int main()
 	int bytes_read;
 	int i;
 	char *stash;
+	char *new_buffer;
 
 	fd = open("test", O_RDONLY | O_CREAT);
 	if (fd == -1)
@@ -38,30 +39,46 @@ int main()
 		i = 0;
 		if (stash != NULL)
 		{
-			char *new_buffer = ft_strjoin(stash, buffer) ;
+			printf("\ncondition 1\n");
+			new_buffer = ft_strjoin(stash, buffer) ;
 			printf("\nstash + buffer joined : %s\n", new_buffer);
-			*buffer = ft_substr(buffer, 0, i); //pose pb
-			stash = ft_substr(buffer, i, BUFF_SIZE);
+			i = 0;
+			while (i <= ft_strlen(new_buffer))
+				i++; // length de new_buffer
+			*buffer = "";
+			i = 0;
+			while (i <= BUFF_SIZE) //*buffer = ft_substr(new_buffer, 0, BUFF_SIZE); //pose pb
+			{
+				buffer[i] = new_buffer[i];
+				i++;
+			}
+			printf("\nbuffer : %s\n", buffer);
+			stash = ft_substr(new_buffer, BUFF_SIZE + 1, i);
+			printf("\nstash : %s\n", stash);
 		}
 		if (ft_strchr(buffer, '\n') != NULL)
 		{
+			printf("\ncondition 2\n");
+			i = 0;
 			while(buffer[i] != '\n')
-				i++;
-			stash = ft_substr(buffer, 0, i);
-			printf("\nstash :\n");
-			ft_putstr(stash);
-			stash = ft_substr(buffer, i, BUFF_SIZE);
+				i++; //lenght jusqu'au \n
+			stash = ft_substr(buffer, i + 1, ft_strlen(buffer)); // + ce que j'avais deja dans le stash!!!
+			char *buffer1 = ft_substr(buffer, 0, i);
+			printf("\nbuffer affiché :\n");
+			ft_putstr(buffer1);
 			printf("\nstash en mémoire %s\n", stash);
 		}
 		else
 		{
-			printf("\nbuffer :\n");
+			printf("\ncondition 3\n");
+			printf("\nbuffer affiché :\n");
 			ft_putstr(buffer);
 		}
 			
 		//printf("\nnb_of_bytes dans buffer : %li\n", ft_strlen(buffer));
 		//printf("\nnb_of_bytes dans stash : %li\n\n", ft_strlen(stash));
 		bytes_read = read(fd, buffer, BUFF_SIZE);
+		printf("\nNext Buffer\n");
 	}
 	
 	if (close(fd) == -1) // en checkant si = -1, ça execute la commande "close"
