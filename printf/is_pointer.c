@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_pointer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:45 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/02 21:57:12 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/03 12:58:16 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,35 +52,6 @@ int ft_nbrlen_unsigned(unsigned long long ptr, int base_len)
 
 int ft_is_pointer(unsigned long long ptr, int trigger)
 {
-	// unsigned long adress;
-	// char *base;
-	// char result[9];
-	// int i;
-
-	// if (ptr == NULL)
-	// {
-	// 	ft_putstr("(nil)");
-	// 	return (5);
-	// }
-	// adress = (unsigned long)ptr;
-	// base = "0123456789abcdef";
-	// i = 8; // 6 numeros + 0x
-	// while ((adress / 16) > 0)
-	// {
-	// 	result[i] = base[(adress % 16)];
-	// 	adress = adress / 16;
-	// 	i--;
-	// }
-	// result[i] = base[(adress % 16)];
-	// ft_putchar('0');
-	// ft_putchar('x');
-	// while(i < 9) // 6 numeros + 0x + \0
-	// {
-	// 	ft_putchar(result[i]);
-	// 	i++;
-	// }
-	// return(ft_nbrlen(ptr, 16) + 2);
-
 	char * base;
 
 	if ((void *)ptr == NULL)
