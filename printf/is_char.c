@@ -6,7 +6,7 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:00:58 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/02 20:38:04 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:28:55 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_putchar(int c)
 {
 	write(1, &c, 1);
-	return(1);
+	return (1);
 }
 
 int	ft_putstr(char *s)
@@ -33,5 +33,15 @@ int	ft_putstr(char *s)
 		ft_putchar(s[i]);
 		i++;
 	}
-	return(i);
+	return (i);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }

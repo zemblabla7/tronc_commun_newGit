@@ -6,15 +6,15 @@
 #    By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/02 14:42:11 by casomarr          #+#    #+#              #
-#    Updated: 2023/01/02 18:44:03 by casomarr         ###   ########.fr        #
+#    Updated: 2023/01/04 14:49:17 by casomarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-HEADER = ft_printf.h
 FILES = ft_printf.c 	\
 		is_char.c		\
-		is_num.c		\
+		is_num_int.c	\
+		is_num_u.c		\
 		is_pointer.c	\
 
 OBJS = ${FILES:.c=.o}

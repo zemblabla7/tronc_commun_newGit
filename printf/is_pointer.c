@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   is_pointer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:45 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/03 12:58:16 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:30:06 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_nbrlen(long long ptr, int base_len)
+int	ft_nbrlen(long long ptr, int base_len)
 {
-	int i;
+	int					i;
 	unsigned long long	n;
 
 	i = 0;
@@ -35,9 +35,9 @@ int ft_nbrlen(long long ptr, int base_len)
 	return (i);
 }
 
-int ft_nbrlen_unsigned(unsigned long long ptr, int base_len)
+int	ft_nbrlen_unsigned(unsigned long long ptr, int base_len)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (ptr == 0)
@@ -50,9 +50,9 @@ int ft_nbrlen_unsigned(unsigned long long ptr, int base_len)
 	return (i);
 }
 
-int ft_is_pointer(unsigned long long ptr, int trigger)
+int	ft_is_pointer(unsigned long long ptr, int trigger)
 {
-	char * base;
+	char	*base;
 
 	if ((void *)ptr == NULL)
 	{
@@ -65,5 +65,5 @@ int ft_is_pointer(unsigned long long ptr, int trigger)
 	if (ptr > 15)
 		ft_is_pointer((ptr / 16), 0);
 	ft_putchar(base[ptr % 16]);
-	return(ft_nbrlen_unsigned(ptr, 16) + 2);
+	return (ft_nbrlen_unsigned(ptr, 16) + 2);
 }
