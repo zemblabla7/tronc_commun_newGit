@@ -3,41 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:15 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/04 20:17:49 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/05 14:43:05 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #define BUFF_SIZE 7
 
-char new_buffer_and_stash(char *joined_buffer, char type)
-{
-	size_t i;
-	char *new_buffer;
-	char *new_stash;
+// char *new_buffer_and_stash(char *joined_buffer, char type)
+// {
+// 	size_t i;
+// 	char *new_buffer;
+// 	char *new_stash;
 
-	i = 0;
-	new_buffer = "";
-	while (i <= ft_strlen(joined_buffer))
-		i++; // length de joined_buffer
-	i = 0;
-	while (i <= BUFF_SIZE) //*buffer = ft_substr(joined_buffer, 0, BUFF_SIZE); //pose pb
-	{
-		new_buffer[i] = joined_buffer[i];
-		i++;
-	}
-	new_stash = ft_substr(joined_buffer, BUFF_SIZE + 1, i);
-	if (type == 'b')
-		return (*new_buffer);
-	if (type == 's')
-		return (*new_stash);
-	return(EXIT_FAILURE);
-}
+// 	new_stash = ft_substr(joined_buffer, BUFF_SIZE + 1, (ft_strlen(joined_buffer) - BUFF_SIZE + 1));
+// 	new_buffer = ft_substr(joined_buffer, 0, BUFF_SIZE);
+// 	if (type == 'b')
+// 		return (new_buffer);
+// 	if (type == 's')
+// 		return (new_stash);
+// 	return(NULL);
+// }
 
-char is_new_line(char *buffer, char *stash)
+char *is_new_line(char *buffer, char *stash)
 {
 	size_t i;
 	size_t j;
@@ -50,15 +41,15 @@ char is_new_line(char *buffer, char *stash)
 	cut_buffer = ft_substr(buffer, 0, i);
 	printf("\nbuffer affiché :\n");
 	ft_putstr(cut_buffer);
-	stash_for_next_line = ft_strjoin(stash, ft_substr(buffer, i + 1, ft_strlen(buffer)));
+	stash_for_next_line = ft_strjoin(stash, ft_substr(buffer, i + 1, (ft_strlen(buffer) - (i + 1))));
 	j = 0;
 	while (stash_for_next_line[j])
 		j++;
 	stash_for_next_line[j] = '\0';
-	return (*stash_for_next_line);
+	return (stash_for_next_line);
 }
 
-char no_new_line(char *buffer, char *stash)
+char *no_new_line(char *buffer, char *stash) // si j'utilise strlcpy et strlcat un des params est le nb de bytes
 {
 	size_t i;
 	char *cut_buffer;
@@ -67,12 +58,12 @@ char no_new_line(char *buffer, char *stash)
 	cut_buffer = ft_substr(buffer, 0, BUFF_SIZE);
 	printf("\nbuffer affiché :\n");
 	ft_putstr(cut_buffer);
-	stash_for_next_line = ft_strjoin(stash, ft_substr(buffer, BUFF_SIZE + 1, ft_strlen(buffer)));
+	stash_for_next_line = ft_strjoin(stash, ft_substr(buffer, BUFF_SIZE + 1, (ft_strlen(buffer) - (BUFF_SIZE + 1))));
 	i = 0;
 	while (stash_for_next_line[i])
 		i++;
 	stash_for_next_line[i] = '\0';
-	return (*stash_for_next_line);
+	return (stash_for_next_line);
 }
 
 int main()
@@ -103,16 +94,16 @@ int main()
 	while (bytes_read > 0)
 	{
 		buffer_bis = buffer;
-		printf("buffer : %s", buffer_bis);
+		printf("buffer_bis : %s", buffer_bis);
 		buffer_bis[bytes_read + 1] = '\0';
 		i = 0;
-		if (stash != NULL)
+		if (stash_for_next_line != NULL)
 		{
-			joined_buffer = ft_strjoin(stash, buffer) ;
-			printf("\njoined_buffer : %s\n", new_buffer);
-			new_buffer = new_buffer_and_stash(joined_buffer, 'b');
+			joined_buffer = ft_strjoin((char *)stash_for_next_line, (char *)buffer_bis);
+			printf("\njoined_buffer : %s\n", joined_buffer);
+			new_buffer = ft_substr(joined_buffer, 0, BUFF_SIZE);
 			printf("\nnew_buffer : %s\n", new_buffer);
-			new_stash = new_buffer_and_stash(joined_buffer, 's');
+			new_stash = ft_substr(joined_buffer, BUFF_SIZE + 1, (ft_strlen(joined_buffer) - BUFF_SIZE + 1));
 			printf("\nnew_stash : %s\n", stash);
 			if (ft_strchr(new_buffer, '\n') != NULL)
 			{
@@ -128,23 +119,25 @@ int main()
 		}
 		else
 		{
-			if (ft_strchr(buffer, '\n') != NULL)
+			if (ft_strchr(buffer_bis, '\n') != NULL)
 			{
 				i = 0;
-				while(buffer[i] != '\n')
+				while(buffer_bis[i] != '\n')
 					i++;
 				cut_buffer = ft_substr(buffer, 0, i);
+				printf("\ncut_buffer: %s", cut_buffer);
 				ft_putstr(cut_buffer);
-				stash_for_next_line = ft_substr(buffer, i + 1, ft_strlen(buffer));
+				stash_for_next_line = ft_substr(buffer_bis, i + 1, (ft_strlen(buffer_bis) - (i + 1)));
 				j = 0;
 				while (stash_for_next_line[j])
 					j++;
 				stash_for_next_line[j] = '\0';
+				printf("\nstash for next line: %s", stash_for_next_line);
 			}
 			else
 			{
 				printf("\nbuffer affiché :\n");
-				ft_putstr(buffer);
+				ft_putstr(buffer_bis);
 			}
 
 		}
