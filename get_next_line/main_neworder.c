@@ -6,7 +6,7 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:15 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/05 17:44:33 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/05 18:10:29 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,27 @@
 
 char *is_new_line(char *buffer, char info)
 {
-	size_t i;
-	char *cut_buffer;
-	char *stash_for_next_line;
+    size_t i;
+    char *cut_buffer;
+    char *stash_for_next_line;
 
-	if (info == 'y')
-	{
-		i = 0;
-		while(buffer[i] != '\n') // ou utiliser strchr?
-			i++; //lenght jusqu'au \n
-	}
-	else
-		i = BUFF_SIZE;
-	if ((i + 2) < ft_strlen(buffer))
-		stash_for_next_line = ft_substr(buffer, i + 2, (ft_strlen(buffer) - (i + 2))); // car [i] est un de mois que i
-	else
-		stash_for_next_line = "";
-	cut_buffer = ft_substr(buffer, 0, i + 1);
-	printf("\nbuffer affiché :\n");
-	ft_putstr(cut_buffer);
-	return (stash_for_next_line);
+    if (info == 'y')
+    {
+        i = 0;
+        while(buffer[i] != '\n') // ou utiliser strchr?
+            i++; //lenght jusqu'au \n
+        i+=1; // car [i] est un de mois que i
+    }
+    else
+        i = BUFF_SIZE;
+    if (i < ft_strlen(buffer))
+        stash_for_next_line = ft_substr(buffer, i, (ft_strlen(buffer) - i));
+    else
+        stash_for_next_line = "";
+    cut_buffer = ft_substr(buffer, 0, i);
+    printf("\nbuffer affiché :\n");
+    ft_putstr(cut_buffer);
+    return (stash_for_next_line);
 }
 
 int main()
@@ -88,14 +89,12 @@ int main()
 		return (1);
 	}
 
-	bytes_read = 0;
 	bytes_read = read(fd, buffer, BUFF_SIZE);
 	while (bytes_read > 0)
 	{
 		buffer_bis = buffer;
 		printf("buffer_bis : %s", buffer_bis);
 		buffer_bis[bytes_read + 1] = '\0';
-		i = 0;
 		if (stash_for_next_line != NULL)
 		{
 			joined_buffer = ft_strjoin((char *)stash_for_next_line, (char *)buffer_bis);
