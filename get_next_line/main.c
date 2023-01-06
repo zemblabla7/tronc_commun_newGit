@@ -6,7 +6,7 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:15 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/06 11:31:46 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:37:48 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int main ()
 {
 	int fd;
-	int	line;
 	int	i;
 	
 	fd = open("test", O_RDONLY | O_CREAT); // remplacer "test" par av[1] par exemple
@@ -25,11 +24,10 @@ int main ()
 		return (1);
 	}
 	
-	line = 5;
 	i = 0;
-	while (i < line)
+	while (i < 10)
 	{
-		get_next_line(fd, line);
+		get_next_line(fd);
 		i++;
 	}
 	//free();
