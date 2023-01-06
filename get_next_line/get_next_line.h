@@ -6,7 +6,7 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:23 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/06 10:21:51 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:35:48 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-void    get_next_line(int fd);
-char    *is_new_line(char *buffer, char info); // soit je la rend static et du coup pas besoin de la mettre ici?
+char    *get_next_line(int fd);
+static char    *is_new_line(char *buffer, char info); // comme static pas besoin de la mettre ici?
 char    *ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *s);
 void	ft_putchar(char c);

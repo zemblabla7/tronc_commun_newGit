@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_static.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:13:43 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/06 11:31:44 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:34:02 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #define BUFF_SIZE 15
 
-char	*is_new_line(char *buffer, char info)
+static char	*is_new_line(char *buffer, char info)
 {
     size_t	i;
     char	*cut_buffer;
@@ -37,37 +37,30 @@ char	*is_new_line(char *buffer, char info)
     return (stash_for_next_line);
 }
 
-char	*get_next_line(int fd, int line) // verifier si bon prototype
+char	*get_next_line(int fd) // verifier si bon prototype
 {
 	int	bytes_read;
-	int	i;
 	char	buffer[BUFF_SIZE + 1];
 	char	*joined_buffer;
 	char	*stash_for_next_line;
 	char	*type_of_buffer;
 
 	bytes_read = read(fd, buffer, BUFF_SIZE);
-	i = 0;
-	while (i < line)
+	if (bytes_read > 0)
 	{
-		if (bytes_read > 0)
+		if (stash_for_next_line != NULL)
 		{
-			if (stash_for_next_line != NULL)
-			{
-				joined_buffer = ft_strjoin((char *)stash_for_next_line, (char *)buffer);
-				type_of_buffer = joined_buffer;
-			}
-			else
-				type_of_buffer = buffer;
-			
-			if (ft_strchr(type_of_buffer, '\n') != NULL) // ca va imprimer cut_buffer aussi
-				stash_for_next_line = is_new_line(type_of_buffer, 'y'); // couper jusqu a \n
-			else // no new line
-				stash_for_next_line = is_new_line(type_of_buffer, 'n'); // couper jusqu a buff_size
+			joined_buffer = ft_strjoin((char *)stash_for_next_line, (char *)buffer);
+			type_of_buffer = joined_buffer;
 		}
-		if (bytes_read == 0 && stash_for_next_line != NULL)
-			return(stash_for_next_line);
-		bytes_read = read(fd, buffer, BUFF_SIZE);
-		i++;
+		else
+			type_of_buffer = buffer;
+		
+		if (ft_strchr(type_of_buffer, '\n') != NULL) // ca va imprimer cut_buffer aussi
+			stash_for_next_line = is_new_line(type_of_buffer, 'y'); // couper jusqu a \n
+		else // no new line
+			stash_for_next_line = is_new_line(type_of_buffer, 'n'); // couper jusqu a buff_size
 	}
+	if (bytes_read == 0 && stash_for_next_line != NULL)
+		return(stash_for_next_line);
 }

@@ -6,7 +6,7 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:30 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/06 10:21:55 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/06 10:46:52 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t		i;
 	char		*new_str;
 
-	if (len < 0 || s == NULL)
+	if (s == NULL)
 		return (NULL);
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
