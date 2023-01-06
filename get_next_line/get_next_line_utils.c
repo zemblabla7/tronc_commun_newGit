@@ -6,7 +6,7 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:30 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/05 16:36:59 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/06 10:21:55 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,6 @@ void	ft_putstr(char *s)
 	}
 }
 
-void	ft_putnbr(int n)
-{
-	unsigned int	nbr;
-
-	nbr = n;
-	if (n < 0)
-	{
-		nbr = n * -1;
-		ft_putchar('-');
-	}
-	if (nbr > 9)
-		ft_putnbr(nbr / 10);
-	ft_putchar((nbr % 10 + 48));
-}
-
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t		i;
@@ -83,33 +68,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	new_str[i] = '\0';
 	return (new_str);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n)
-	{
-		((char *)s)[i] = 0;
-		i++;
-	}
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*ptr;
-
-	if (nmemb == 0 && size == 0)
-		return (malloc(0));
-	if (nmemb != 0 && (nmemb * size) / nmemb != size)
-		return (NULL);
-	ptr = malloc(nmemb * size);
-	if (ptr == NULL)
-		return (NULL);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
 }
 
 char	*ft_strchr(const char *s, int c)

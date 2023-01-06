@@ -6,38 +6,64 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:13:43 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/03 15:45:45 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/06 10:21:54 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#define BUFF_SIZE 7
 
-char *get_next_line(int fd)
+char	*is_new_line(char *buffer, char info)
 {
-	char *buffer;
-	int nb_of_bits;
-	int ret;
+    size_t	i;
+    char	*cut_buffer;
+    char	*stash_for_next_line;
 
-	nb_of_bits = 10;
-	buffer = ft_calloc(nb_of_bits + 1, sizeof(char));
-	//buffer[nb_of_bits + 1] = '\0';
-	while(ret = read(fd, buffer, nb_of_bits));
-	{
-		buffer[ret] = '\0';
-		ft_putnbr(ret);
-		ft_putstr(buffer);
-	}
-	ft_putnbr(ret);
-	//printf("%s", buffer);
-
+    if (info == 'y')
+    {
+        i = 0;
+        while(buffer[i] != '\n') // ou utiliser strchr?
+            i++; //lenght jusqu'au \n
+        i+=1; // car [i] est un de mois que i
+    }
+    else
+        i = BUFF_SIZE;
+    if (i < ft_strlen(buffer))
+        stash_for_next_line = ft_substr(buffer, i, (ft_strlen(buffer) - i));
+    else
+        stash_for_next_line = NULL;
+    cut_buffer = ft_substr(buffer, 0, i);
+    ft_putstr(cut_buffer);
+    return (stash_for_next_line);
 }
 
-int main ()
+void get_next_line(int fd) // verifier si bon prototype
 {
-	int fd = open("test", O_RDONLY | O_CREAT);
+	int	bytes_read;
+	size_t	i;
+	char	buffer[BUFF_SIZE + 1];
+	char	*joined_buffer;
+	char	*stash_for_next_line;
+	char	*type_of_buffer;
 
-	printf("%s", get_next_line(fd));
-
-	close(fd);
-	return 0;
+	bytes_read = read(fd, buffer, BUFF_SIZE);
+	while (bytes_read > 0)
+	{
+		if (stash_for_next_line != NULL)
+		{
+			joined_buffer = ft_strjoin((char *)stash_for_next_line, (char *)buffer);
+			type_of_buffer = joined_buffer;
+		}
+		else
+			type_of_buffer = buffer;
+		
+		if (ft_strchr(type_of_buffer, '\n') != NULL) // ca va imprimer cut_buffer aussi
+			stash_for_next_line = is_new_line(type_of_buffer, 'y'); // couper jusqu a \n
+		else // no new line
+			stash_for_next_line = is_new_line(type_of_buffer, 'n'); // couper jusqu a buff_size
+		bytes_read = read(fd, buffer, BUFF_SIZE);
+		if (bytes_read == 0 && stash_for_next_line != NULL)
+			ft_putstr(stash_for_next_line);
+	}
+	//free();
 }
