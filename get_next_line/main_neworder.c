@@ -6,40 +6,12 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:15 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/05 18:10:29 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/06 09:29:42 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #define BUFF_SIZE 7
-
-// char *is_new_line(char *buffer)
-// {
-// 	size_t i;
-// 	char *cut_buffer;
-// 	char *stash_for_next_line;
-
-// 	i = 0;
-// 	while(buffer[i] != '\n') // ou utiliser strchr?
-// 		i++; //lenght jusqu'au \n
-// 	cut_buffer = ft_substr(buffer, 0, i + 1);
-// 	printf("\nbuffer affiché :\n");
-// 	ft_putstr(cut_buffer);
-// 	stash_for_next_line = ft_substr(buffer, i + 2, (ft_strlen(buffer) - (i + 2))); // car [i] est un de mois que i
-// 	return (stash_for_next_line);
-// }
-
-// char *no_new_line(char *buffer) // si j'utilise strlcpy et strlcat un des params est le nb de bytes
-// {
-// 	char *cut_buffer;
-// 	char *stash_for_next_line;
-
-// 	cut_buffer = ft_substr(buffer, 0, BUFF_SIZE + 1);
-// 	printf("\nbuffer affiché :\n");
-// 	ft_putstr(cut_buffer);
-// 	stash_for_next_line = ft_substr(buffer, BUFF_SIZE + 2, (ft_strlen(buffer) - (BUFF_SIZE + 2)));
-// 	return (stash_for_next_line);
-// }
 
 char *is_new_line(char *buffer, char info)
 {
@@ -61,7 +33,7 @@ char *is_new_line(char *buffer, char info)
     else
         stash_for_next_line = "";
     cut_buffer = ft_substr(buffer, 0, i);
-    printf("\nbuffer affiché :\n");
+    //printf("\nbuffer affiché :\n");
     ft_putstr(cut_buffer);
     return (stash_for_next_line);
 }
@@ -81,6 +53,7 @@ int main()
 	char *cut_buffer;
 	char *stash_for_next_line;
 	char *buffer_bis;
+	char *type_of_buffer;
 
 	fd = open("test", O_RDONLY | O_CREAT);
 	if (fd == -1)
@@ -93,31 +66,41 @@ int main()
 	while (bytes_read > 0)
 	{
 		buffer_bis = buffer;
-		printf("buffer_bis : %s", buffer_bis);
+		//printf("buffer_bis : %s", buffer_bis);
 		buffer_bis[bytes_read + 1] = '\0';
 		if (stash_for_next_line != NULL)
 		{
 			joined_buffer = ft_strjoin((char *)stash_for_next_line, (char *)buffer_bis);
-			printf("\njoined_buffer : %s\n", joined_buffer);
+			//printf("\njoined_buffer : %s\n", joined_buffer);
+			type_of_buffer = joined_buffer;
+		}
+		else
+		{
+			type_of_buffer = buffer_bis;
 		}
 		
-		if (ft_strchr(joined_buffer, '\n') != NULL) // ca va imprimer cut_buffer aussi
+		if (ft_strchr(type_of_buffer, '\n') != NULL) // ca va imprimer cut_buffer aussi
 		{
-			stash_for_next_line = is_new_line(joined_buffer, 'y'); // couper jusqu a \n
-			printf("\nstash en mémoire %s\n", stash_for_next_line);
+			stash_for_next_line = is_new_line(type_of_buffer, 'y'); // couper jusqu a \n
+			//printf("\nstash en mémoire %s\n", stash_for_next_line);
 		}
 		else // no new line
 		{
-			stash_for_next_line = is_new_line(new_buffer, 'n'); // couper jusqu a buff_size
-			printf("\nstash en mémoire %s\n", stash_for_next_line);
+			stash_for_next_line = is_new_line(type_of_buffer, 'n'); // couper jusqu a buff_size
+			//printf("\nstash en mémoire %s\n", stash_for_next_line);
 		}
 
 		//printf("\nnb_of_bytes dans buffer : %li\n", ft_strlen(buffer));
 		//printf("\nnb_of_bytes dans stash : %li\n\n", ft_strlen(stash));
+		//free(joined_buffer);
 		bytes_read = read(fd, buffer, BUFF_SIZE);
-		printf("\nNext Buffer\n");
+		//printf("\nNext Buffer\n");
+
+		if (bytes_read == 0 && stash_for_next_line != NULL)
+			ft_putstr(stash_for_next_line);
 	}
 
+	//free();
 	if (close(fd) == -1) // en checkant si = -1, ça execute la commande "close"
 	{
 		ft_putstr("close command failed\n");
