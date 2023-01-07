@@ -6,7 +6,7 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:15 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/06 12:09:53 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:35:03 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int main ()
 	}
 	
 	i = 0;
-	while (i < 30)
+	while (i < 40)
 	{
 		get_next_line(fd);
+		//printf("\n"); // avce cette ligne pas de problème d'affichage! Sans ça, pb à cause de big (stash)
 		i++;
 	}
 	//free();
