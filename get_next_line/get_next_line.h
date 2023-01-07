@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:23 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/06 13:09:31 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/07 13:47:46 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 void    get_next_line(int fd);
 //static char    *is_new_line(char *buffer, char info); // comme static pas besoin de la mettre ici? en tt cas tripouille me dit erreur sinon

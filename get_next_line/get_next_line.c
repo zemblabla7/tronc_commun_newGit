@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:13:43 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/06 16:32:59 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/07 14:16:23 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,15 @@ void	get_next_line(int fd) // verifier si bon prototype
 	char	*type_of_buffer;
 
 	bytes_read = read(fd, buffer, BUFF_SIZE);
-	//buffer[ft_strlen(buffer) + 1] = '\0';
+
+	static bool s_isFirstCall = true;
+
+	if (s_isFirstCall)
+	{
+		stash = NULL;
+		s_isFirstCall = false;
+	}
+
 	if (bytes_read > 0)
 	{
 		if (stash != NULL)
