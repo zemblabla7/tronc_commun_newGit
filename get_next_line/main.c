@@ -6,7 +6,7 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:15 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/07 17:41:59 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/07 18:24:09 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int main ()
 	{
 		line = get_next_line(fd);
 		printf("%s", line);
+		free(line);
 		i++;
 	}
 	//free();

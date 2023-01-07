@@ -6,7 +6,7 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:13:43 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/07 18:20:01 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/07 18:55:17 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static char	*is_new_line(char *big, char info, char variable) //le pb vient de b
 		in_memory = NULL;
 	to_print = ft_substr(big, 0, i);
 	if (variable == 'm') //memory
+	{
+		free(to_print);
 		return(in_memory);
+	}
 	else /*if (variable == 'p')*/ //print
 		return(to_print);
 }
@@ -70,8 +73,12 @@ char	*get_next_line(int fd) // verifier si bon prototype
 	}
 	else
 	{
+		free(type_of_buffer);
 		if (in_memory == NULL) //while in_memory != null on continue de couper à chaque \n
+		{
+			free(in_memory); // ne change rien au nb de free sur valgrind
 			return ("");
+		}
 		else
 		{
 			if (ft_strchr(in_memory, '\n') != NULL) // ca va imprimer cut_buffer aussi
@@ -86,5 +93,9 @@ char	*get_next_line(int fd) // verifier si bon prototype
 			}
 		}
 	}
+	// if (ft_strchr(to_print, '\0') != NULL)
+	// 	free(in_memory);
+	// if (to_print[ft_strlen(to_print) + 1] == '\0') // le pb est qu'il y a tjrs un \0 car ft_substr les met
+	// 	free(in_memory);
 	return (to_print);
 }
