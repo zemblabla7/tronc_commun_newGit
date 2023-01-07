@@ -6,7 +6,7 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:15 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/07 17:41:59 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/07 13:27:07 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int main ()
 {
 	int fd;
 	int	i;
-	char *line;
 
 	fd = open("test", O_RDONLY | O_CREAT); // remplacer "test" par av[1] par exemple
 	if (fd == -1)
@@ -26,10 +25,10 @@ int main ()
 	}
 
 	i = 0;
-	while (i < 8)
+	while (i < 40)
 	{
-		line = get_next_line(fd);
-		printf("%s", line);
+		get_next_line(fd);
+		//printf("\n"); // avce cette ligne pas de problème d'affichage! Sans ça, pb à cause de big (stash)
 		i++;
 	}
 	//free();

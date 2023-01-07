@@ -6,74 +6,99 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:13:43 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/07 14:16:23 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/07 18:04:34 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFF_SIZE 10
+#define BUFF_SIZE 20
 
-static char	*is_new_line(char *big, char info) //le pb vient de big
+static char	*is_new_line(char *big, char info, char variable) //le pb vient de big
 {
     size_t	i;
     char	*to_print;
     char	*in_memory;
 
 	i = 0;
-	while(big[i] != info && i < BUFF_SIZE)
+	while(big[i] != info)
 		i++; //lenght jusqu'au \n, \0 ou BUFF_SIZE
 	i+=1; // car [i] est un de mois que i
-    if (i < ft_strlen(big))
+	if (i < ft_strlen(big))
 		in_memory = ft_substr(big, i, (ft_strlen(big) - i));
-    else
+	else
 		in_memory = NULL;
-    to_print = ft_substr(big, 0, i);
-    ft_putstr(to_print);
-    return (in_memory);
+	to_print = ft_substr(big, 0, i);
+
+	// printf("\nstash :%s\n", in_memory);
+	// printf("\nbuffer :%s\n", to_print);
+	if (variable == 'm') //memory
+		return(in_memory);
+	else /*if (variable == 'p')*/ //print
+		return(to_print);
+	//return ("Error");
 }
 
-void	get_next_line(int fd) // verifier si bon prototype
+char	*get_next_line(int fd) // verifier si bon prototype
 {
 	int	bytes_read;
 	char	buffer[BUFF_SIZE + 1];
-	char	*joined_buffer;
-	char	*stash;
+	static char	*in_memory;
 	char	*type_of_buffer;
+	char	*to_print;
+	static bool isFirstCall = true; //norminette verfifier
+	static int i;
 
+	i = 0;
+	//printf("\nbool :%d\n", isFirstCall);
+	if (isFirstCall)
+	{
+		in_memory = NULL;
+		to_print = NULL;
+		type_of_buffer = NULL;
+		isFirstCall = false;
+	}
 	bytes_read = read(fd, buffer, BUFF_SIZE);
-
-	static bool s_isFirstCall = true;
-
-	if (s_isFirstCall)
-	{
-		stash = NULL;
-		s_isFirstCall = false;
-	}
-
-	if (bytes_read > 0)
-	{
-		if (stash != NULL)
+	// while(in_memory[i] != '\0')
+	// {
+		//bytes_read = read(fd, buffer, BUFF_SIZE);
+		if (bytes_read > 0)
 		{
-			joined_buffer = ft_strjoin((char *)stash, (char *)buffer);
-			type_of_buffer = joined_buffer;
-		}
-		else
-			type_of_buffer = buffer;
-		if (ft_strchr(type_of_buffer, '\n') != NULL) // ca va imprimer cut_buffer aussi
-			stash = is_new_line(type_of_buffer, '\n'); // couper jusqu a \n
-		else // no new line
-			stash = is_new_line(type_of_buffer, '\0'); // couper jusqu a buff_size
-	}
-	else
-	{
-		if (stash == NULL) //while stash != null on continue de couper à chaque \n
-			ft_putstr("");
-		else
-		{
-			if (ft_strchr(stash, '\n') != NULL) // ca va imprimer cut_buffer aussi
-				stash = is_new_line(stash, '\n'); // couper jusqu a \n
+			if (in_memory != NULL)
+				type_of_buffer = ft_strjoin((char *)in_memory, (char *)buffer); //joined_buffer
+			else
+				type_of_buffer = buffer;
+			if (ft_strchr(type_of_buffer, '\n') != NULL) // ca va imprimer cut_buffer aussi
+			{
+				to_print = is_new_line(type_of_buffer, '\n', 'p'); // couper jusqu a \n
+				in_memory = is_new_line(type_of_buffer, '\n', 'm');
+			}
 			else // no new line
-				stash = is_new_line(stash, '\0'); // couper jusqu a buff_size
+			{
+				to_print = is_new_line(type_of_buffer, '\0', 'p'); // couper jusqu a buff_size
+				in_memory = is_new_line(type_of_buffer, '\0', 'm');
+			}
 		}
-	}
+		else
+		{
+			if (in_memory == NULL) //while in_memory != null on continue de couper à chaque \n
+				return ("");
+			else
+			{
+				if (ft_strchr(in_memory, '\n') != NULL) // ca va imprimer cut_buffer aussi
+				{
+					to_print = is_new_line(in_memory, '\n', 'p'); // couper jusqu a \n
+					in_memory = is_new_line(in_memory, '\n', 'm');
+				}
+				else // no new line
+				{
+					to_print = is_new_line(in_memory, '\0', 'p'); // couper jusqu a buff_size
+					in_memory = is_new_line(in_memory, '\0', 'm');
+				}
+			}
+		}
+	// 	bytes_read = read(fd, buffer, BUFF_SIZE);
+	// 	i++;
+	// }
+	//printf("%s", to_print);
+	return (to_print);
 }
