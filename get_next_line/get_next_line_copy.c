@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_copy.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:13:43 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/09 15:27:12 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:27:10 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #define BUFF_SIZE 4
 
-static char	*is_new_line(char *big, char info, char variable) //le pb vient de big
+static char	*is_new_line(char *big, char variable) //le pb vient de big
 {
     size_t	i;
     char	*to_print;
     char	*in_memory;
 
 	i = 0;
-	// if(big == NULL)
-	// 	return (NULL);
-	while(big[i] != info)
+	while((big[i] != '\n' || big[i] != '\0') && (i + 1) < BUFF_SIZE)
 		i++; //lenght jusqu'au \n, \0 ou BUFF_SIZE
 	i+=1; // car [i] est un de mois que i
 	if (i < BUFF_SIZE)
@@ -30,12 +28,12 @@ static char	*is_new_line(char *big, char info, char variable) //le pb vient de b
 	else
 		in_memory = NULL;
 	to_print = ft_substr(big, 0, i);
-	if (variable == 'm') //memory
+	if (variable == 'm')
 	{
 		free(to_print);
 		return(in_memory);
 	}
-	else /*if (variable == 'p')*/ //print
+	else
 		return(to_print);
 }
 
@@ -67,13 +65,13 @@ char	*get_next_line(int fd) // verifier si bon prototype
 			new_buffer = buffer;
 		if (ft_strchr(new_buffer, '\n') != NULL)
 		{
-			to_print = is_new_line(new_buffer, '\n', 'p'); // couper jusqu a \n
-			in_memory = is_new_line(new_buffer, '\n', 'm');
+			to_print = is_new_line(new_buffer, 'p'); // couper jusqu a \n
+			in_memory = is_new_line(new_buffer, 'm');
 		}
 		else // no new line
 		{
-			to_print = is_new_line(new_buffer, '\0', 'p'); // couper jusqu a buff_size
-			in_memory = is_new_line(new_buffer, '\0', 'm');
+			to_print = is_new_line(new_buffer, 'p'); // couper jusqu a buff_size
+			in_memory = is_new_line(new_buffer, 'm');
 		}
 	}
 	else
@@ -88,13 +86,13 @@ char	*get_next_line(int fd) // verifier si bon prototype
 		{
 			if (ft_strchr(in_memory, '\n') != NULL) // ca va imprimer cut_buffer aussi
 			{
-				to_print = is_new_line(in_memory, '\n', 'p'); // couper jusqu a \n
-				in_memory = is_new_line(in_memory, '\n', 'm');
+				to_print = is_new_line(in_memory, 'p'); // couper jusqu a \n
+				in_memory = is_new_line(in_memory, 'm');
 			}
 			else // no new line
 			{
-				to_print = is_new_line(in_memory, '\0', 'p'); // couper jusqu a buff_size
-				in_memory = is_new_line(in_memory, '\0', 'm');
+				to_print = is_new_line(in_memory, 'p'); // couper jusqu a buff_size
+				in_memory = is_new_line(in_memory, 'm');
 			}
 		}
 	}
@@ -104,6 +102,5 @@ char	*get_next_line(int fd) // verifier si bon prototype
 	// 	free(in_memory);
 	// if (to_print[ft_strlen(to_print) + 1] == '\0') // le pb est qu'il y a tjrs un \0 car ft_substr les met
 	// 	free(in_memory);
-	printf("\n");
 	return (to_print);
 }
