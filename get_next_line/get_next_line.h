@@ -6,7 +6,7 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:23 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/09 15:20:18 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:59:09 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@ void	ft_putchar(char c);
 void	ft_putstr(char *s);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
+
+// void	*ft_calloc(size_t nmemb, size_t size);
+// void	ft_bzero(void *s, size_t n);
 
 #endif

@@ -6,23 +6,21 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:13:43 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/09 15:27:12 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/09 16:28:00 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #define BUFF_SIZE 4
 
-static char	*is_new_line(char *big, char info, char variable) //le pb vient de big
+static char	*is_new_line(char *big, char variable) //le pb vient de big
 {
     size_t	i;
     char	*to_print;
     char	*in_memory;
 
 	i = 0;
-	// if(big == NULL)
-	// 	return (NULL);
-	while(big[i] != info)
+	while((big[i] != '\n' || big[i] != '\0') && (i + 1) < BUFF_SIZE)
 		i++; //lenght jusqu'au \n, \0 ou BUFF_SIZE
 	i+=1; // car [i] est un de mois que i
 	if (i < BUFF_SIZE)
@@ -30,12 +28,12 @@ static char	*is_new_line(char *big, char info, char variable) //le pb vient de b
 	else
 		in_memory = NULL;
 	to_print = ft_substr(big, 0, i);
-	if (variable == 'm') //memory
+	if (variable == 'm')
 	{
 		free(to_print);
 		return(in_memory);
 	}
-	else /*if (variable == 'p')*/ //print
+	else
 		return(to_print);
 }
 
@@ -57,28 +55,26 @@ char	*get_next_line(int fd) // verifier si bon prototype
 		isFirstCall = false;
 		//bytes_read = 0;
 		buffer = malloc((BUFF_SIZE + 1) * sizeof(char));
+		//buffer = ft_calloc((BUFF_SIZE + 1), sizeof(char));
 	}
-	bytes_read = read(fd, buffer, BUFF_SIZE);
+	bytes_read = read(fd, buffer, BUFF_SIZE); 
+	// printf("\nbytes read %i\n", bytes_read);
+	// printf("\nBUFF SIZE %i\n", BUFF_SIZE);
+	// printf("\nbuffer length %i\n", ft_strlen(buffer));
+	buffer[bytes_read] = '\0'; // car read() lit moins que BUFF_SIZE qd arrive au bout du fichier
 	if (bytes_read > 0)
 	{
+		//buffer[bytes_read] = '\0'; // règle mon pb de lettres en trop à la fin! // (!!!!) lorsque je mets cette ligne en dessous de bytes_read = read(fd, buffer, BUFF_SIZE); je n'ai plus que 4 erreurs sur valgrind mais ça me montre un SEGFAULT sur valgrind??
 		if (in_memory != NULL)
 			new_buffer = ft_strjoin((char *)in_memory, (char *)buffer); //joined_buffer
 		else
 			new_buffer = buffer;
-		if (ft_strchr(new_buffer, '\n') != NULL)
-		{
-			to_print = is_new_line(new_buffer, '\n', 'p'); // couper jusqu a \n
-			in_memory = is_new_line(new_buffer, '\n', 'm');
-		}
-		else // no new line
-		{
-			to_print = is_new_line(new_buffer, '\0', 'p'); // couper jusqu a buff_size
-			in_memory = is_new_line(new_buffer, '\0', 'm');
-		}
+		to_print = is_new_line(new_buffer, 'p'); // couper jusqu a \n
+		in_memory = is_new_line(new_buffer, 'm');
 	}
 	else
 	{
-		//free(new_buffer); // ça me rajoute des erreurs
+		//free(new_buffer); // ça me rajoute des erreurs car pas utilisé de malloc pour cette variable donc pas de free!
 		if (in_memory == NULL) //while in_memory != null on continue de couper à chaque \n
 		{
 			free(in_memory); // ne change rien au nb de free sur valgrind
@@ -86,16 +82,8 @@ char	*get_next_line(int fd) // verifier si bon prototype
 		}
 		else
 		{
-			if (ft_strchr(in_memory, '\n') != NULL) // ca va imprimer cut_buffer aussi
-			{
-				to_print = is_new_line(in_memory, '\n', 'p'); // couper jusqu a \n
-				in_memory = is_new_line(in_memory, '\n', 'm');
-			}
-			else // no new line
-			{
-				to_print = is_new_line(in_memory, '\0', 'p'); // couper jusqu a buff_size
-				in_memory = is_new_line(in_memory, '\0', 'm');
-			}
+				to_print = is_new_line(in_memory, 'p'); // couper jusqu a \n
+				in_memory = is_new_line(in_memory, 'm');
 		}
 	}
 	//free(new_buffer);
@@ -104,6 +92,6 @@ char	*get_next_line(int fd) // verifier si bon prototype
 	// 	free(in_memory);
 	// if (to_print[ft_strlen(to_print) + 1] == '\0') // le pb est qu'il y a tjrs un \0 car ft_substr les met
 	// 	free(in_memory);
-	printf("\n");
+	//printf("\n");
 	return (to_print);
 }

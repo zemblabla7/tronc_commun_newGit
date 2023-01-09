@@ -6,7 +6,7 @@
 /*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:30 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/09 15:02:36 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:59:15 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,3 +112,34 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	new_str[i] = '\0';
 	return (new_str);
 }
+
+
+
+
+
+// void	ft_bzero(void *s, size_t n)
+// {
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (i < n)
+// 	{
+// 		((char *)s)[i] = 0;
+// 		i++;
+// 	}
+// }
+
+// void	*ft_calloc(size_t nmemb, size_t size)
+// {
+// 	void	*ptr;
+
+// 	if (nmemb == 0 && size == 0)
+// 		return (malloc(0));
+// 	if (nmemb != 0 && (nmemb * size) / nmemb != size)
+// 		return (NULL);
+// 	ptr = malloc(nmemb * size);
+// 	if (ptr == NULL)
+// 		return (NULL);
+// 	ft_bzero(ptr, nmemb * size);
+// 	return (ptr);
+// }
