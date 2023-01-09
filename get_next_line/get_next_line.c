@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:13:43 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/07 18:55:17 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/09 14:32:49 by carolina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ static char	*is_new_line(char *big, char info, char variable) //le pb vient de b
 char	*get_next_line(int fd) // verifier si bon prototype
 {
 	int	bytes_read;
-	char	buffer[BUFF_SIZE + 1];
+	//char	buffer[BUFF_SIZE + 1];
+	char	*buffer;
 	static char	*in_memory;
-	char	*type_of_buffer;
+	char	*new_buffer;
 	char	*to_print;
 	static bool isFirstCall = true; //norminette verfifier
 
@@ -50,30 +51,32 @@ char	*get_next_line(int fd) // verifier si bon prototype
 	{
 		in_memory = NULL;
 		to_print = NULL;
-		type_of_buffer = NULL;
+		new_buffer = NULL;
 		isFirstCall = false;
+		//bytes_read = 0;
+		buffer = malloc((BUFF_SIZE + 1) * sizeof(char));
 	}
 	bytes_read = read(fd, buffer, BUFF_SIZE);
 	if (bytes_read > 0)
 	{
 		if (in_memory != NULL)
-			type_of_buffer = ft_strjoin((char *)in_memory, (char *)buffer); //joined_buffer
+			new_buffer = ft_strjoin((char *)in_memory, (char *)buffer); //joined_buffer
 		else
-			type_of_buffer = buffer;
-		if (ft_strchr(type_of_buffer, '\n') != NULL) // ca va imprimer cut_buffer aussi
+			new_buffer = buffer;
+		if (ft_strchr(new_buffer, '\n') != NULL) // ca va imprimer cut_buffer aussi
 		{
-			to_print = is_new_line(type_of_buffer, '\n', 'p'); // couper jusqu a \n
-			in_memory = is_new_line(type_of_buffer, '\n', 'm');
+			to_print = is_new_line(new_buffer, '\n', 'p'); // couper jusqu a \n
+			in_memory = is_new_line(new_buffer, '\n', 'm');
 		}
 		else // no new line
 		{
-			to_print = is_new_line(type_of_buffer, '\0', 'p'); // couper jusqu a buff_size
-			in_memory = is_new_line(type_of_buffer, '\0', 'm');
+			to_print = is_new_line(new_buffer, '\0', 'p'); // couper jusqu a buff_size
+			in_memory = is_new_line(new_buffer, '\0', 'm');
 		}
 	}
 	else
 	{
-		free(type_of_buffer);
+		//free(new_buffer); // ça me rajoute des erreurs
 		if (in_memory == NULL) //while in_memory != null on continue de couper à chaque \n
 		{
 			free(in_memory); // ne change rien au nb de free sur valgrind
@@ -93,6 +96,8 @@ char	*get_next_line(int fd) // verifier si bon prototype
 			}
 		}
 	}
+	//free(new_buffer);
+	//free(buffer);
 	// if (ft_strchr(to_print, '\0') != NULL)
 	// 	free(in_memory);
 	// if (to_print[ft_strlen(to_print) + 1] == '\0') // le pb est qu'il y a tjrs un \0 car ft_substr les met
