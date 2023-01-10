@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carolina <carolina@student.42.fr>          +#+  +:+       +#+        */
+/*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:15 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/09 15:44:35 by carolina         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:57:26 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main ()
 	}
 
 	i = 0;
-	while (i < 8)
+	while (i < 4)
 	{
 		line = get_next_line(fd);
 		printf("%s", line);
