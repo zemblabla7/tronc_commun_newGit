@@ -30,11 +30,9 @@ int main ()
 	{
 		line = get_next_line(fd);
 		printf("%s", line);
-		//printf("\n");
 		free(line);
 		i++;
 	}
-	//free();
 
 	if (close(fd) == -1) // en checkant si = -1, ça execute la commande "close"
 	{

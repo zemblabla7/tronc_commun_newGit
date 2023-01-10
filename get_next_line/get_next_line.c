@@ -6,13 +6,13 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 21:13:43 by casomarr          #+#    #+#             */
-/*   Updated: 2023/01/10 15:49:13 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:39:38 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*is_new_line(char *big, char variable)
+static char	*cut(char *big, char variable)
 {
 	size_t	i;
 	char	*to_print;
@@ -47,8 +47,8 @@ static char	*read_next_line(int bytes_read, char *buffer)
 	{
 		if (in_memory != NULL)
 			buffer = ft_strjoin((char *)in_memory, (char *)buffer);
-		to_print = is_new_line(buffer, 'p');
-		in_memory = is_new_line(buffer, 'm');
+		to_print = cut(buffer, 'p');
+		in_memory = cut(buffer, 'm');
 	}
 	else
 	{
@@ -56,8 +56,8 @@ static char	*read_next_line(int bytes_read, char *buffer)
 			return ("");
 		else
 		{
-			to_print = is_new_line(in_memory, 'p');
-			in_memory = is_new_line(in_memory, 'm');
+			to_print = cut(in_memory, 'p');
+			in_memory = cut(in_memory, 'm');
 		}
 	}
 	free(buffer);
@@ -69,10 +69,15 @@ char	*get_next_line(int fd)
 	int			bytes_read;
 	char		*buffer;
 
-	if (fd < 0 || BUFF_SIZE <= 0)
+	if (fd == -1 || BUFF_SIZE <= 0)
 		return (NULL);
 	buffer = malloc((BUFF_SIZE + 1) * sizeof(char));
 	bytes_read = read(fd, buffer, BUFF_SIZE);
+	// if (bytes_read == -1)
+	// {
+	// 	free (buffer);
+	// 	return (NULL);
+	// }
 	buffer[bytes_read] = '\0';
 	return (read_next_line(bytes_read, buffer));
 }
