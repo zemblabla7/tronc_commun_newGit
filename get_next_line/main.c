@@ -18,7 +18,7 @@ int main ()
 	int	i;
 	char *line;
 
-	fd = open("test", O_RDONLY | O_CREAT); // remplacer "test" par av[1] par exemple
+	fd = open("test2", O_RDONLY | O_CREAT); // remplacer "test" par av[1] par exemple
 	if (fd == -1)
 	{
 		ft_putstr("open command failed\n");
