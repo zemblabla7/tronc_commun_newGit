@@ -6,7 +6,7 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:23 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/10 15:43:09 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:57:23 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFF_SIZE
-#  define BUFF_SIZE 4
+#  define BUFF_SIZE 6
 # endif
 
 # include <stdio.h>

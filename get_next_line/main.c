@@ -6,7 +6,7 @@
 /*   By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:02:15 by carolina          #+#    #+#             */
-/*   Updated: 2023/01/10 16:57:26 by casomarr         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:58:17 by casomarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,16 @@ int main ()
 	}
 
 	i = 0;
-	while (i < 4)
+	while (i < 6)
 	{
 		line = get_next_line(fd);
 		printf("%s", line);
+		// printf("%d\n", i);
+		printf("\n\n\n");
 		free(line);
 		i++;
 	}
+	free(line);
 
 	if (close(fd) == -1) // en checkant si = -1, ça execute la commande "close"
 	{
